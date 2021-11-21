@@ -1,0 +1,408 @@
+{
+	"info": {
+		"_postman_id": "1df381f9-9461-4fb3-8559-ebe8532b5338",
+		"name": "APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AddSlots",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dose1\": false,\r\n    \"dose2\": true,\r\n    \"18to45\": false,\r\n    \"45plus\": true,\r\n    \"covishield\": false,\r\n    \"covaxin\": true,\r\n    \"availability\": 85\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/apis/addAndUpdateSlots/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"apis",
+						"addAndUpdateSlots",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTokens",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJleHAiOjE2MzcyMjMxODksImlhdCI6MTYzNzIxOTU4OX0.vxQLODlJISkTIUWX0-nNW4xhxa__q35JOCw8RMPWoZc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://healthcarekims.herokuapp.com/apis/getTokens/",
+					"protocol": "https",
+					"host": [
+						"healthcarekims",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"apis",
+						"getTokens",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getActiveSlots",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"jsonData\",JSON.stringify(pm.iterationData.toObject()));",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{jsonData}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/apis/getActiveSlots/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"apis",
+						"getActiveSlots",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generateToken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// var previous_ben_id = pm.globals.get(\"beneficiary_reference_id\");\r",
+							"// var new_ben_id = parseInt(previous_ben_id) + 1;\r",
+							"// console.log(previous_ben_id,new_ben_id);\r",
+							"// pm.globals.set(\"beneficiary_reference_id\",new_ben_id);\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// var beneficiaries = pm.iterationData.get(\"beneficiaries\");\r",
+							"// var phone_number = pm.iterationData.get(\"phone_number\");\r",
+							"// var doses = pm.iterationData.get(\"doses\");\r",
+							"\r",
+							"// pm.globals.set(\"beneficiaries\", JSON.stringify(beneficiaries));\r",
+							"// pm.globals.set(\"phone_number\", JSON.stringify(phone_number));\r",
+							"// pm.globals.set(\"doses\", JSON.stringify(doses));\r",
+							"\r",
+							"// console.log(JSON.stringify(pm.iterationData.get('beneficiaries')));\r",
+							"// console.log(pm.iterationData.get('phone_number'));\r",
+							"// console.log(pm.iterationData.get('doses'));\r",
+							"pm.globals.set(\"jsonData\",JSON.stringify(pm.iterationData.toObject()));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{jsonData}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/apis/generateToken/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"apis",
+						"generateToken",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSlots",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://10.196.9.19:8000/apis/getSlots/",
+					"protocol": "http",
+					"host": [
+						"10",
+						"196",
+						"9",
+						"19"
+					],
+					"port": "8000",
+					"path": [
+						"apis",
+						"getSlots",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\" : \"a\",\n    \"password\" : \"a\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/auth/register",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addAndUpdateSlots",
+			"protocolProfileBehavior": {
+				"disableCookies": false
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJleHAiOjE2MzYyMzAxNDgsImlhdCI6MTYzNjIyNjU0OH0.Bq1cEsyDg8-RPTJiRzWzIvf-BKKdudjxGYMVpDrELmE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+						"key": "Authorization",
+						"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJleHAiOjE2MzYyMzAxNDgsImlhdCI6MTYzNjIyNjU0OH0.Bq1cEsyDg8-RPTJiRzWzIvf-BKKdudjxGYMVpDrELmE",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"dose1\": true,\n    \"dose2\": false,\n    \"18to45\": true,\n    \"45plus\": false,\n    \"covishield\": true,\n    \"covaxin\": false,\n    \"availability\": 30,\n    \"date\" : \"2021-10-27\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/apis/addAndUpdateSlots/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"apis",
+						"addAndUpdateSlots",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/auth/logout",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\" : \"test\",\n    \"password\" : \"test\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/auth/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
